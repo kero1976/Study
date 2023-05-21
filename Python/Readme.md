@@ -10,6 +10,9 @@
 1. requirements.txtファイルをsrcやvenvと同じ階層に作成する
 2. pip install -r requirements.txt
 
+## activate.ps1でのエラー
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+
 ## pip installでのエラー対応
 ERROR: Can not perform a '--user' install. User site-packages are not visible in this virtualenv.
 上記のエラーが発生した場合は、
