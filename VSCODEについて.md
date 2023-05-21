@@ -25,7 +25,10 @@
 
 ### インストール
 
-「Extension Pack for Java」をインストールする
+以下のサイトからJava Coding Packをインストールする
+https://code.visualstudio.com/docs/java/java-tutorial
+
+2023/5/21時点の最新は0.4.1
 
 # コマンド
 
