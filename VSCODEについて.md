@@ -17,7 +17,15 @@
 
 ## Python
 
+### インストール
 
+「Python」をインストールする
+
+## Java
+
+### インストール
+
+「Extension Pack for Java」をインストールする
 
 # コマンド
 
