@@ -31,3 +31,15 @@ venvの下にできた「pyvenv.cfg」ファイルにある、「include-system-
 
 ## blackについて
 VSCODEのライブラリもあるが、pip installでインストールした場合の使い方について記載する
+
+# コマンド
+
+## pip
+
+### インストールの一覧
+pip list
+
+### ライブラリのインストール先の確認
+pip show ライブラリ名
+
+
