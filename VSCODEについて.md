@@ -1,5 +1,8 @@
 # 設定
 
+## 保存場所
+Windows %APPDATA%\Code\User\settings.json
+
 ## 日本語化
 
 ### 言語パックのインストール
