@@ -1,7 +1,12 @@
 # 設定
 
 ## 保存場所
+
+### ユーザー設定ファイル
 Windows %APPDATA%\Code\User\settings.json
+
+### ワークスペース設定ファイル
+プロジェクトルート/.vscode/settings.json
 
 ## 日本語化
 
