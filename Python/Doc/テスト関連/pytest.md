@@ -74,3 +74,10 @@ loggerは「--log-cli-level=DEBUG」
 ### --durations=数値
 指定した数の時間のかかっているテストを調べる。
 最も遅いテストを3つ調べる場合は、`--durations=3`
+
+## Pathの通し方
+
+### 実行方法によるPathの通し方
+
+importで、src.XXXと指定しても、srcが見つからないとなる。
+pytestで実行するのではなく、「python -m pytest」で実行するとカレントディレクトリがsys.pathに追加される。
