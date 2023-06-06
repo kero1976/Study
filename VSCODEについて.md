@@ -23,6 +23,9 @@ Windows %APPDATA%\Code\User\settings.json
 3. 「Configure Display Language」を選択する
 4. 言語が表示されるので、日本語を選択
 
+### テキストファイルの文字化け対応
+VSCODE右下に「UTF-8」と現在の文字コードが指定されているので、クリックして「エンコード付きで再度開く」を指定する。
+
 ## Python
 
 ### インストール
