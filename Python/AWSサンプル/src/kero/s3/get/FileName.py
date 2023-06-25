@@ -1,0 +1,74 @@
+"""
+S3にファイルがあるかどうかを確認する
+"""
+from logging import getLogger, StreamHandler, DEBUG, Formatter, INFO
+import boto3
+from termcolor import colored, cprint
+import logging
+import traceback
+from logging import getLogger, StreamHandler, DEBUG, config
+import os
+import botocore
+config.fileConfig(os.path.join(os.path.dirname(__file__) , "../../logging.ini"), encoding='utf-8')
+
+
+
+
+logger = getLogger(__name__)
+
+
+
+def s3list(s3, bucket_name):
+    logger.info({"action": 'start',
+                'param': {
+                    's3': s3,
+                    'bucket_name': bucket_name
+                }})
+    list = []
+
+    # バケット内のオブジェクトのリストを取得
+    try:
+        response = s3.list_objects_v2(Bucket=bucket_name)
+    except botocore.exceptions.ClientError as err:
+        msg = {
+            "action": "fail",
+            "msg": "list_objects_v2 err",
+            "exception": err,
+            "type": type(err),
+            "traceback": traceback.format_exception(err)
+        }
+        if err.response["Error"]["Code"] == "NoSuchBucket":
+            logger.error(f"Bucker({bucket_name}) is Not Found.")
+        logger.debug(msg)
+        return
+    except Exception as err:
+        msg = {
+            "action": "fail",
+            "msg": "list_objects_v2 err",
+            "exception": err,
+            "type": type(err),
+            "traceback": traceback.format_exception(err)
+        }
+        logger.debug(msg)
+        return
+
+    # オブジェクトのリストを表示
+    if "Contents" in response:
+        for obj in response["Contents"]:
+            list.append(obj["Key"])
+    else:
+        print("バケット内にオブジェクトはありません。")
+    logger.info({
+        'action': 'success',
+        'return': list
+    })
+    return list
+
+
+def s3listInput():
+    logger.debug({"action": 'start'})
+    buketname = input(colored("[+]Bucket Name:", "green"))
+    s3list(boto3.client("s3"), buketname)
+
+if __name__ == '__main__':
+    s3listInput()
