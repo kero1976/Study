@@ -44,6 +44,16 @@ def s3list(s3, bucket_name):
         logger.error(f"S3 Request Error.({code}):Bucketname={bucket_name}")
         logger.debug(msg)
         return
+    except botocore.exceptions.NoCredentialsError as err:
+        msg = {
+            "action": "fail",
+            "msg": "list_objects_v2 err",
+            "exception": err,
+            "type": type(err)
+        }
+        logger.error(f"NoCredentialsError.")
+        logger.debug(msg)
+        return
     except Exception as err:
         msg = {
             "action": "fail",
