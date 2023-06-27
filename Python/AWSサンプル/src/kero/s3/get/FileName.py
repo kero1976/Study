@@ -73,7 +73,8 @@ def s3list(s3, bucket_name):
         print("バケット内にオブジェクトはありません。")
     logger.info({
         'action': 'success',
-        'return': list
+        'return': list,
+        "cnt": len(list)
     })
     return list
 
