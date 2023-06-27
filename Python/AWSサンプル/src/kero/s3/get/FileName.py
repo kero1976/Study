@@ -14,11 +14,12 @@ logger = getLogger(__name__)
 
 
 
-def s3list(s3, bucket_name):
+def s3list(s3, bucket_name, prefix=""):
     logger.info({"action": 'start',
                 'param': {
                     's3': s3,
-                    'bucket_name': bucket_name
+                    'bucket_name': bucket_name,
+                    'prefix': prefix
                 }})
     list = []
     if not bucket_name:
@@ -31,7 +32,7 @@ def s3list(s3, bucket_name):
         return
     # バケット内のオブジェクトのリストを取得
     try:
-        response = s3.list_objects_v2(Bucket=bucket_name)
+        response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
     except botocore.exceptions.ClientError as err:
         msg = {
             "action": "fail",
