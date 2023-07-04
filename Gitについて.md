@@ -24,3 +24,20 @@ git diff --numstat タグ名・コミットID
 
 git config --global core.quotepath false
 git config --global core.pager "LESSCHARSET=utf-8 less"
+
+## sjisのdiffで文字化け
+プロジェクトのルートディレクトリに「.gitattributes」ファイルを作成する。
+「.git」フォルダの中ではないので注意！
+中に拡張子と文字コードを書けばＯＫ。
+```
+*.ps1 diff=cp932
+```
+
+## .gitattributesの確認方法
+
+```
+git check-attr --all <file-path>
+```
+
+何も表示されなかったら、正しく設定されていないことになる。
+
