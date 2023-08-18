@@ -1,14 +1,15 @@
-# 設定
+# 1.設定
 
-## 保存場所
+## 1-1.保存場所
 
 ### ユーザー設定ファイル
 Windows %APPDATA%\Code\User\settings.json
+https://daeudaeu.com/vscode-settings-json/
 
 ### ワークスペース設定ファイル
 プロジェクトルート/.vscode/settings.json
 
-## 日本語化
+## 1-2.日本語化
 
 ### 言語パックのインストール
 
@@ -26,13 +27,18 @@ Windows %APPDATA%\Code\User\settings.json
 ### テキストファイルの文字化け対応
 VSCODE右下に「UTF-8」と現在の文字コードが指定されているので、クリックして「エンコード付きで再度開く」を指定する。
 
-## Python
+## 1-3.Python
 
 ### インストール
 
 「Python」をインストールする(一緒に「Pylance」もインストールされる)
 
-## Java
+### Linter・Formatter
+https://qiita.com/firedfly/items/00c34018581c6cec9b84
+flake8をインストール
+命名規則のチェックにはpep8-namingをインストールする
+
+## 1-4.Java
 
 ### インストール
 
@@ -58,3 +64,4 @@ Ctrl + Shift + P
 
 ### マークダウンの表示
 Ctrl + Shift + V
+
