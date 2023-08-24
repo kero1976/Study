@@ -41,3 +41,9 @@ git check-attr --all <file-path>
 
 何も表示されなかったら、正しく設定されていないことになる。
 
+## 3-2.変更の取り消し(rebert)
+
+https://hiro8blog.com/revert-commits-all-at-once/
+
+git revert コミットログA...コミットログB --no-edit
+...を書くことによりAからBまでの範囲を一度に戻すことが可能。ただしちょっと指定方法に注意が必要なので、URLを確認すること
