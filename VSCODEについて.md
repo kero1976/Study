@@ -38,6 +38,9 @@ https://qiita.com/firedfly/items/00c34018581c6cec9b84
 flake8をインストール
 命名規則のチェックにはpep8-namingをインストールする
 
+### Document
+autoDocstringという機能拡張を入れる
+
 ## 1-4.Java
 
 ### インストール
