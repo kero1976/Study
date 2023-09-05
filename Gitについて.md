@@ -60,4 +60,4 @@ git remote prune origin
 
 ## 3-4.誰がブランチを作成したかの確認
 
-git for-each-ref --format='%(committerdate) %09(authorname) %09(refname)'
+git for-each-ref --format='%(committerdate) %09 %(authorname) %09 %(refname)'
