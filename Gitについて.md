@@ -47,3 +47,17 @@ https://hiro8blog.com/revert-commits-all-at-once/
 
 git revert コミットログA...コミットログB --no-edit
 ...を書くことによりAからBまでの範囲を一度に戻すことが可能。ただしちょっと指定方法に注意が必要なので、URLを確認すること
+
+## 3-3.不要なブランチの削除
+
+### 不要なローカルブランチをすべて削除する
+
+git branch |%{ git branch -D $_.trim() }
+
+### ローカルのリモートブランチの情報を更新
+
+git remote prune origin
+
+## 3-4.誰がブランチを作成したかの確認
+
+git for-each-ref --format='%(committerdate) %09(authorname) %09(refname)'
