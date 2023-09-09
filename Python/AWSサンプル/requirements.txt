@@ -1,3 +1,4 @@
 black
 boto3
 termcolor
+pep8-naming

@@ -45,4 +45,4 @@ def sample2():
 
     print(response)
 
-sample2()
+sample1()
