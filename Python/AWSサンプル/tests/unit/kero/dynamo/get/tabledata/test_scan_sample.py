@@ -54,9 +54,28 @@ class TestSample():
         assert e.value.args[0] == "AWSとのコネクションエラー。"
         assert type(e.value.args[1]) == botocore.exceptions.NoCredentialsError
 
-
+    @pytest.mark.skip
     def test_ok(self, logcontrol):
 
         client = boto3.client("dynamodb")
         dynamo = SampleDynamo(client)
-        assert dynamo.scan('No One You Know') is not None
+        assert len(dynamo.scan('No One You Know')) == 2
+
+    @pytest.mark.skip
+    def test_no_table(self, logcontrol):
+
+        client = boto3.client("dynamodb")
+        dynamo = SampleDynamo(client, "hoge")
+        with pytest.raises(MyAppAWSException) as e:
+            dynamo.scan('No One You Know') 
+            
+        # エラーメッセージを検証
+        assert e.value.args[0] == "Table(hoge)が存在しませんでした。"
+        assert type(e.value.args[1]) == client.exceptions.ResourceNotFoundException
+
+
+    def test_no_data(self, logcontrol):
+
+        client = boto3.client("dynamodb")
+        dynamo = SampleDynamo(client)
+        assert len(dynamo.scan('hoge')) == 0

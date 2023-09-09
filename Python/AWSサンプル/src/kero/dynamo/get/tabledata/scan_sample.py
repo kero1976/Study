@@ -2,7 +2,6 @@ import boto3
 from logging import getLogger
 from botocore.exceptions import EndpointConnectionError, NoCredentialsError
 
-
 logger = getLogger(__name__)
 
 class MyAppAWSException(Exception):
@@ -35,9 +34,44 @@ class SampleDynamo():
             }
         })
     
+    def response_metadata_check(self, response):
+        logger.debug({
+            "action": "start",
+            "param": {
+                "response": response
+            }
+        })
+        if response.get("HTTPStatusCode") == 200:
+            logger.debug({
+                "action": "success",
+                "param": {
+                    "response": response
+                },
+                "return": True
+            })
+            return True
+        else:
+            logger.debug({
+                "action": "success",
+                "param": {
+                    "response": response
+                },
+                "return": False
+            })
+            return False
+
 
     def scan(self, hash: str):
         response = self.scan_getresponse(hash)
+        if self.response_metadata_check(response.get("ResponseMetadata")):
+            logger.debug({
+                "action": "success",
+                "param": {
+                    "response": response
+                },
+                "return": response["Items"]
+            })
+            return response["Items"]
         for i in response:
             print(i + "\n")
         return response
@@ -73,7 +107,7 @@ class SampleDynamo():
                 },
                 FilterExpression='Artist = :a',
                 ProjectionExpression='#ST, #AT',
-                TableName='Music',
+                TableName=self.table,
             )
         except (EndpointConnectionError, NoCredentialsError) as e:
             logger.error(
@@ -85,6 +119,16 @@ class SampleDynamo():
                 "exception": e
             })
             raise MyAppAWSException("AWSとのコネクションエラー。", e)
+        except self.client.exceptions.ResourceNotFoundException as e:
+            logger.error(
+                {
+                "action": "fail",
+                "param": {
+                    "hash": hash
+                },
+                "exception": e
+            })
+            raise MyAppAWSException(f"Table({self.table})が存在しませんでした。", e)
         
         logger.debug(
             {
