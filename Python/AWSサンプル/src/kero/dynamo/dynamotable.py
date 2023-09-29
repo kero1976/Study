@@ -434,3 +434,30 @@ class dynamo2():
                     "code": err.response['Error']['Code'],
                     "Message": err.response['Error']['Message']
                 })
+
+    def delete_table(self, table_name:str):
+        logger.debug({
+            "action": "start",
+            "param": {
+                "table_name": table_name,
+            }
+        })
+        try:
+            table = self.dynamo.Table(table_name)
+            table.delete()
+            logger.debug({
+                "action": "success",
+                "message": f"Table({table_name}) is deleted.",
+            })
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'ResourceNotFoundException':
+                logger.info({
+                    "action": "fail",
+                    "message": f"Table({table_name}) is not found."
+                })
+            else:
+                logger.error({
+                    "action": "fail",
+                    "message": f"予期せぬエラー",
+                    "exception": err
+                })
