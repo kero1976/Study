@@ -6,8 +6,8 @@ import pprint
 from boto3.dynamodb.conditions import Attr, Key
 import datetime
 
-# dynamodb = boto3.resource('dynamodb', endpoint_url='http://192.168.50.204:8000')
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', endpoint_url='http://192.168.50.204:8000')
+# dynamodb = boto3.resource('dynamodb')
 botocore = logging.getLogger("botocore")
 botocore.setLevel(logging.ERROR)
 urllib3 = logging.getLogger("urllib3")
@@ -32,7 +32,7 @@ def test_table_datail():
 @pytest.mark.skip
 def test_table_create():
 
-    TableName = 'idolmaster3'
+    TableName = 'idolmaster'
     KeySchema = [
         {
             'AttributeName': 'series',
@@ -287,5 +287,6 @@ def testshijo():
     dynamo = dynamo2(dynamodb)
     # response = dynamo.list_all_tables()
     # pp = pprint.PrettyPrinter(width=41, compact=True)
-    dynamo.delete_table("idolmaster3")
+    # dynamo.delete_table("idolmaster3")
     # pprint.pprint(response)
+    dynamo.delete_all_items("idolmaster")

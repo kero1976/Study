@@ -198,7 +198,8 @@ class dynamo2():
                     "response": response
                 })
         logger.info({
-            "action": "success"
+            "action": "success",
+            "count": len(items)
         })
 
     def scan_all_items(self, table_name):
@@ -449,6 +450,63 @@ class dynamo2():
                 "action": "success",
                 "message": f"Table({table_name}) is deleted.",
             })
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'ResourceNotFoundException':
+                logger.info({
+                    "action": "fail",
+                    "message": f"Table({table_name}) is not found."
+                })
+            else:
+                logger.error({
+                    "action": "fail",
+                    "message": f"予期せぬエラー",
+                    "exception": err
+                })
+
+    def delete_all_items(self, table_name):
+        logger.debug({
+            "action": "start",
+            "param": {
+                "table_name": table_name,
+            }
+        })
+        try:
+            table = self.dynamo.Table(table_name)
+            delete_items = []
+            parameters   = {}
+            while True:
+                response = table.scan(**parameters)
+                # リストの結合
+                delete_items.extend(response["Items"])
+                if ( "LastEvaluatedKey" in response ):
+                    parameters["ExclusiveStartKey"] = response["LastEvaluatedKey"]
+                else:
+                    break
+
+            # キー抽出
+            logger.debug({
+                "action": "run",
+                "message": "table.key_schema",
+                "table.key_schema": table.key_schema
+            })
+            key_names = [ x["AttributeName"] for x in table.key_schema ]
+            logger.debug({
+                "action": "run",
+                "message": "key_names",
+                "key_names": key_names
+            })
+            delete_keys = [ { k:v for k,v in x.items() if k in key_names } for x in delete_items ]
+            logger.debug({
+                "action": "run",
+                "message": "delete_keys ",
+                "delete_keys ": delete_keys 
+            })
+            # データ削除
+            with table.batch_writer() as batch:
+                for key in delete_keys:
+                    batch.delete_item(Key = key)
+
+            return 0
         except ClientError as err:
             if err.response['Error']['Code'] == 'ResourceNotFoundException':
                 logger.info({
