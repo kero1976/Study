@@ -60,6 +60,12 @@ https://code.visualstudio.com/docs/java/java-tutorial
 
 # コマンド
 
+## 検索
+
+### ファイル名の検索
+
+ctrl + P
+
 ## その他
 
 ### コマンドパレットの表示

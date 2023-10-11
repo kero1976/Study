@@ -7,6 +7,9 @@ git diff --numstat タグ名・コミットID
 ### numstatの見方
 先頭に追加した行数・削除した行数のサマリが表示される
 
+## 1-2.特定のファイルのみ絞り込み
+最後に「*.java」などを指定すればOK。特にパラメータの指定は不要。
+
 # 2.ファイル
 
 ## 2-1.空フォルダを削除しない
@@ -61,3 +64,7 @@ git remote prune origin
 ## 3-4.誰がブランチを作成したかの確認
 
 git for-each-ref --format='%(committerdate) %09 %(authorname) %09 %(refname)'
+
+## 3-4.ソースを修正した人の確認
+
+git blame ファイル名
