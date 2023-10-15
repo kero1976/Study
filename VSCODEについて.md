@@ -66,6 +66,12 @@ https://code.visualstudio.com/docs/java/java-tutorial
 
 ctrl + P
 
+
+## 置換
+
+### 小文字化
+https://creating-homepage.com/archives/9596
+
 ## その他
 
 ### コマンドパレットの表示

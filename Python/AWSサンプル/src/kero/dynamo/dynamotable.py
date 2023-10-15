@@ -94,9 +94,11 @@ class dynamo2():
             "type": type(response),
             "response": response
         })
-        result = []
-        for x in response:
-            result.append(x._name)
+        # result = []
+        # for x in response:
+        #     result.append(x._name)
+
+        result = [x._name for x in response]
 
         logger.info({
             "action": "success",
