@@ -55,6 +55,8 @@ autoDocstringという機能拡張を入れる
 	}
 ```
 
+venvFoldersの設定は無くても問題なし。
+
 ## 1-4.Java
 
 ### インストール
