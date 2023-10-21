@@ -41,6 +41,20 @@ flake8をインストール
 ### Document
 autoDocstringという機能拡張を入れる
 
+### 各フォルダにvenv環境を作成
+
+各フォルダにvenvフォルダを作成し、それぞれの環境でvenvが自動で適用される用にする。
+ワークスペースにそれぞれのフォルダを追加して、ワークスペースのsetting.jsonに以下を記載する。
+
+```
+	"settings": {
+		"python.venvFolders": [
+			".venv"
+		],
+		"puthon.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe"
+	}
+```
+
 ## 1-4.Java
 
 ### インストール
