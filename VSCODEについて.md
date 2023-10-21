@@ -29,19 +29,19 @@ VSCODE右下に「UTF-8」と現在の文字コードが指定されているの
 
 ## 1-3.Python
 
-### インストール
+### 1-3-1.インストール
 
 「Python」をインストールする(一緒に「Pylance」もインストールされる)
 
-### Linter・Formatter
+### 1-3-2.Linter・Formatter
 https://qiita.com/firedfly/items/00c34018581c6cec9b84
 flake8をインストール
 命名規則のチェックにはpep8-namingをインストールする
 
-### Document
+### 1-3-3.Document
 autoDocstringという機能拡張を入れる
 
-### 各フォルダにvenv環境を作成
+### 1-3-4.各フォルダにvenv環境を作成
 
 各フォルダにvenvフォルダを作成し、それぞれの環境でvenvが自動で適用される用にする。
 ワークスペースにそれぞれのフォルダを追加して、ワークスペースのsetting.jsonに以下を記載する。
@@ -56,6 +56,7 @@ autoDocstringという機能拡張を入れる
 ```
 
 venvFoldersの設定は無くても問題なし。
+
 
 ## 1-4.Java
 
