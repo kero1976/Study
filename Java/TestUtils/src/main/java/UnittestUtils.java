@@ -1,4 +1,3 @@
-package kero;
 
 import java.io.IOException;
 import java.net.URI;
@@ -10,19 +9,11 @@ import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestUtils {
+public class UnittestUtils {
 
-	private static TestUtils my = new TestUtils();
-	private static Logger log = LoggerFactory.getLogger(TestUtils.class);
+	private static UnittestUtils my = new UnittestUtils();
+	private static Logger log = LoggerFactory.getLogger(UnittestUtils.class);
 	
-	public static void main(String[] args) throws IOException, URISyntaxException {
-
-//		TestDirectory my = new TestDirectory();
-		var file = my.getResourceFilePath("foo/test2.txt");
-		var dir = createTempDirectory("prefix");
-		copy("foo/test2.txt", dir);
-		
-	}
 	
 	/**
 	 * 作業用のWorkフォルダを作成し、終了後に削除する
@@ -63,6 +54,13 @@ public class TestUtils {
 	 */
 	static Path createFile(final Path dir, final String filename, final String content) throws IOException {
 		log.debug("START({}, {}, {})",dir, filename, content);
+		if (Files.exists(dir)){
+			log.debug("Directory({}) is exist.", dir);
+		}else {
+			log.debug("Directory({}) is not exist. Create.", dir);
+			Files.createDirectories(dir);
+			dir.toFile().deleteOnExit();
+		}
 		var path = Files.writeString(dir.resolve(filename), content);
 		path.toFile().deleteOnExit();
 		log.debug("END({})", path);
