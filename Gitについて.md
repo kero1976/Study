@@ -77,3 +77,9 @@ git for-each-ref --format='%(committerdate) %09 %(authorname) %09 %(refname)'
 ## 4-5.ソースを修正した人の確認
 
 git blame ファイル名
+
+## 4-6.rebase(最新のコードを反映)
+featureブランチにheadがある状態で、
+git rebase develop
+などとやる。競合が発生した場合は、競合を解決した上で
+git rebase --continue
