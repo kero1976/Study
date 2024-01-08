@@ -2,3 +2,4 @@ Python/AWSサンプル/venv311/
 __pycache__/
 venv39/
 **/.venv/
+Python/imagedownload/logs/log.txt
