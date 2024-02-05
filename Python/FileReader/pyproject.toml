@@ -1,19 +1,16 @@
 [tool.poetry]
-name = "imagedownload"
+name = "filereader"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["kero1976 <kero1976@outlook.jp>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-requests = "^2.31.0"
-beautifulsoup4 = "^4.12.2"
-cloudscraper = "^1.2.71"
 
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.4.3"
+pytest = "^8.0.0"
 
 [build-system]
 requires = ["poetry-core"]
