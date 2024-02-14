@@ -126,3 +126,10 @@ UkzhttvWNUXvTBdp0iNpwPRL1gW7Qu7ZSZDlAprIsg==
 
 中間証明書を含めて配布可能な形式。
 拡張子は.p7b or .spc
+
+# 4.コマンド
+
+## 4-1.X509ファイルに対してのコマンド
+
+### 4-1-1.PEM形式からDERへの変換
+openssl x509 -in <inputfile> -inform PEM -out <outfile> DER
