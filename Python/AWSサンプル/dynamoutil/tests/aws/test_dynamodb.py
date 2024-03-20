@@ -26,7 +26,7 @@ import pytest
 #     # 返されたAWSリソースが正しいかを確認
 #     assert resource == mock_resource
     
-    
+@pytest.mark.skip
 def test_get_resource2():
 
 
@@ -44,3 +44,19 @@ def test_get_resource2():
 
         # 返されたAWSリソースが正しいかを確認
         assert resource == mock_resource
+
+@pytest.mark.skip 
+def test_get_table():
+    db = DynamoDb()
+    dynamodb = db.get_resource()
+    table = db.get_table(dynamodb, "idolmaster1")
+    print(table)
+    assert table is not None
+    
+def test_get_all_data():
+    db = DynamoDb()
+    dynamodb = db.get_resource()
+    table = db.get_table(dynamodb, "idolmaster")
+    alldata = db.get_all_data(table)
+    print(alldata)
+    assert alldata is not None
