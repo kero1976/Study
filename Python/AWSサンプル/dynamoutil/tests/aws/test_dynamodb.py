@@ -59,4 +59,5 @@ def test_get_all_data():
     table = db.get_table(dynamodb, "idolmaster")
     alldata = db.get_all_data(table)
     print(alldata)
+    print(type(alldata[0]))
     assert alldata is not None

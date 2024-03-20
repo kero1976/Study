@@ -35,7 +35,7 @@ class DynamoDb:
         return table
 
 
-    def get_all_data(self, table):
+    def get_all_data(self, table) -> list[dict]:
         logger.debug(f"get_all_data start(table={table})")
         try:
             response = table.scan()
