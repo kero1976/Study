@@ -27,3 +27,17 @@ def create_file(file_name: str, datas: list[dict], dir: str=None) -> bool:
         for data in datas:
             f.write(data)
     return True
+
+def create_data_file(table_name: str, datas: list[dict], dir: str=None) -> bool:
+    """_summary_
+
+    Args:
+        datas (list[dict]): _description_
+        dir (str, optional): _description_. Defaults to None.
+
+    Returns:
+        bool: _description_
+    """
+    logger.debug(f"create_data_file start(table_name={table_name}, dir={dir})")
+    file_name = f'{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}_{table_name}.json'
+    return create_file(file_name, datas, dir)
