@@ -1,7 +1,7 @@
 from logging import getLogger
 import os
 import datetime
-
+import json
 
 logger = getLogger(__name__)
 
@@ -25,7 +25,7 @@ def create_file(file_name: str, datas: list[dict], dir: str=None) -> bool:
     
     with open(path, mode="w") as f:
         for data in datas:
-            f.write(data)
+            f.write(json.dumps(data))
     return True
 
 def create_data_file(table_name: str, datas: list[dict], dir: str=None) -> bool:
