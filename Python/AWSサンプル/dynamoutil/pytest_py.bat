@@ -1,0 +1,1 @@
+pytest --log-cli-level=DEBUG -s tests/localfile/test_app.py
