@@ -8,6 +8,15 @@ logging.getLogger("botocore").setLevel(logging.ERROR)
 logging.getLogger("urllib3").setLevel(logging.ERROR)
 logging.getLogger("boto3").setLevel(logging.ERROR)
 
+def dynamodb_all_data(table_name: str, profile=None):
+    db = DynamoDb()
+    if profile:
+        dynamodb = db.get_resource(profile)
+    else:
+        dynamodb = db.get_resource()
+    table = db.get_table(dynamodb, table_name)
+    return db.get_all_data(table)
+
 class DynamoDb:
     """DynamoDBのテスト効率化のためのユーティリティクラス。
     """

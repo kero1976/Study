@@ -2,6 +2,7 @@ from logging import getLogger
 import os
 import datetime
 import json
+from decimal import Decimal
 
 logger = getLogger(__name__)
 
@@ -16,16 +17,16 @@ def create_file(file_name: str, datas: list[dict], dir: str=None) -> bool:
     Returns:
         bool: True:ファイル作成成功、False:ファイル作成失敗
     """
+
     logger.debug(f"create_file start(file_name={file_name}, dir={dir})")
     if dir:
         path = f"{dir}/{file_name}"
     else:
         path = f"./{file_name}"
     logger.debug(f"path={os.path.abspath(path)}")
-    
-    with open(path, mode="w") as f:
-        for data in datas:
-            f.write(json.dumps(data))
+
+    with open(path, 'w') as f:
+        json.dump(datas, f, default=decimal_default, indent=4)
     return True
 
 def create_data_file(table_name: str, datas: list[dict], dir: str=None) -> bool:
@@ -41,3 +42,8 @@ def create_data_file(table_name: str, datas: list[dict], dir: str=None) -> bool:
     logger.debug(f"create_data_file start(table_name={table_name}, dir={dir})")
     file_name = f'{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}_{table_name}.json'
     return create_file(file_name, datas, dir)
+
+def decimal_default(obj):
+    if isinstance(obj, Decimal):
+        return float(obj)
+    raise TypeError
