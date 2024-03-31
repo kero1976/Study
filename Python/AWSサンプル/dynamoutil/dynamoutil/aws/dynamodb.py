@@ -59,6 +59,14 @@ class DynamoDb:
 
 
     def get_all_data(self, table) -> list[dict]:
+        """全件データ取得
+
+        Args:
+            table (_type_): dynamodb table resource
+
+        Returns:
+            list[dict]: _description_
+        """
         logger.debug(f"get_all_data start(table={table})")
         try:
             response = table.scan()
@@ -71,3 +79,9 @@ class DynamoDb:
             return items
         except Exception as e:
             logger.error(f"get_all_data fail.({e})")
+
+    def put_datas(self, table, datas: list[dict]):
+        for data in datas:
+            table.put_item(
+                    Item=data
+            )
