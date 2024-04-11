@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class UnittestUtils {
 
-	private static UnittestUtils my = new UnittestUtils();
+//	private static UnittestUtils my = new UnittestUtils();
 	private static Logger log = LoggerFactory.getLogger(UnittestUtils.class);
 	
 	
@@ -70,7 +71,9 @@ public class UnittestUtils {
 	static Path getResourceFilePath(final String filename) throws IOException {
 		log.debug("START({})",filename);
 		try {
-			var path = Paths.get(new URI(my.getClass().getResource(filename).toString()));
+//			var path = Paths.get(new URI(my.getClass().getResource(filename).toString()));
+			URL url = UnittestUtils.class.getResource(filename);
+			var path = Paths.get(new URI(url.toString()));
 			log.debug("END({})", path);
 			return path;
 		} catch (NullPointerException | URISyntaxException e) {

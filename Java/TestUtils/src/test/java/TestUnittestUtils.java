@@ -15,4 +15,10 @@ public class TestUnittestUtils {
 		Path result =UnittestUtils.createFile(dir.resolve("aaa\\bbb"), "test1.txt", "ABC");
 		assertThat(result).isNotNull();
 	}
+	
+	@Test
+	void test_getResourceFilePath() throws IOException {
+		Path result = UnittestUtils.getResourceFilePath("abc.txt");
+		assertThat(result).isNotNull();
+	}
 }
