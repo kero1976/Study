@@ -12,9 +12,9 @@ def create_dir_file(table_name: str, datas: list, dir=None) -> str:
         datas (list): _description_
     """
     logger.info(f"create_dir_file start(table_name={table_name}, dir={dir})")
-    dub_dir = create_date_dir(dir)
-    if dub_dir:
-        result = create_data_file(table_name, datas, dub_dir)
+    sub_dir = create_date_dir(dir)
+    if sub_dir:
+        result = create_data_file(table_name, datas, sub_dir)
         if result:
             logger.info("success")
     else:

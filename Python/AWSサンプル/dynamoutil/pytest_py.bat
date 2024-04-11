@@ -1,1 +1,1 @@
-pytest --log-cli-level=DEBUG -s tests/localfile/test_app.py
+pytest --log-cli-level=DEBUG -s -v --cov=dynamoutil --cov-report=html -m shijo

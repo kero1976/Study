@@ -8,6 +8,15 @@ logging.getLogger("botocore").setLevel(logging.ERROR)
 logging.getLogger("urllib3").setLevel(logging.ERROR)
 logging.getLogger("boto3").setLevel(logging.ERROR)
 
+def dynamodb_all_data(table_name: str, profile=None):
+    db = DynamoDb()
+    if profile:
+        dynamodb = db.get_resource(profile)
+    else:
+        dynamodb = db.get_resource()
+    table = db.get_table(dynamodb, table_name)
+    return db.get_all_data(table)
+
 class DynamoDb:
     """DynamoDBのテスト効率化のためのユーティリティクラス。
     """
@@ -50,6 +59,14 @@ class DynamoDb:
 
 
     def get_all_data(self, table) -> list[dict]:
+        """全件データ取得
+
+        Args:
+            table (_type_): dynamodb table resource
+
+        Returns:
+            list[dict]: _description_
+        """
         logger.debug(f"get_all_data start(table={table})")
         try:
             response = table.scan()
@@ -62,3 +79,9 @@ class DynamoDb:
             return items
         except Exception as e:
             logger.error(f"get_all_data fail.({e})")
+
+    def put_datas(self, table, datas: list[dict]):
+        for data in datas:
+            table.put_item(
+                    Item=data
+            )
