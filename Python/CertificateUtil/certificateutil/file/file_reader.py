@@ -19,7 +19,8 @@ class FileReader():
         self.get_filename(self.file_name)
         if self.file_data is None:
             if not self._read_utf8():
-                self._read_cp932()
+                if not self._read_cp932():
+                    self._read_binary()
                 
         logger.debug({
             "action": "success",
