@@ -10,7 +10,6 @@ s3 = boto3.resource("s3")
 bucket = s3.Bucket("kerodoc")
 logger = getLogger(__name__)
 
-KEY = "yougoyashikumi_2023.pdf"
 
 
 def put_file_and_tag(bucket, file: str, tags: dict):
@@ -55,6 +54,17 @@ def get_filename(filepath: str) -> str:
         raise ValueError(f"ファイル({abspath})が存在しない")
 
 
-ORIGIN_PATH = "G:/本/セキュリティ/IPA/2023/yougoyashikumi_2023.pdf"
-tags = {"mykey": "myvalue", "mykey2": "myvalue2", "mykey2": "myvalue2", "mykey2": "myvalue2", "mykey2": "myvalue2", "mykey2": "myvalue2", "mykey2": "myvalue2"}
+ORIGIN_PATH = "G:/ブラウザTemp/Oracle/S105684GC10JP-23_Design_for_Security_and_Compliance.pdf"
+tags = {
+    "name": "9.セキュリティとコンプライアンスの設計",
+    "copyright": "Oracle", 
+    # "publisher": "淵上　真一", 
+    # "date": "2023",
+    "filetype": "pdf",
+    "category": "OCI",
+    "public": True,
+    "note": "Oracle Cloud Infrastructure 2023 Architect Professional",
+    }
+# print(tags)
 put_file_and_tag(bucket, ORIGIN_PATH, tags)
+
