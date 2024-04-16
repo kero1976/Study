@@ -15,7 +15,7 @@ class FileReader():
         self.file_data = None
         
     def read(self):
-        logger.debug("start")
+        logger.debug({"action": "start"})
         self.get_filename(self.file_name)
         if self.file_data is None:
             if not self._read_utf8():
