@@ -6,14 +6,46 @@ logger = getLogger(__name__)
 
 # ログメッセージの出力
 
-class FileReader():
+
+class FileReader:
     """FileReader
     テキストファイル・バイナリファイルを読み込むユーティリティクラス。
     """
+
     def __init__(self, file_name):
         self.file_name = file_name
         self.file_data = None
-        
+
+    def get_size(self):
+        """ファイルのサイズを返す
+
+        Returns:
+            _type_: _description_
+        """
+        logger.debug({"action": "start"})
+        size = os.path.getsize(self.file_name)
+        logger.debug({"action": "success", "return": size})
+        return size
+
+    def head(self, size: int):
+        logger.debug(
+            {
+                "action": "start",
+                "params": {
+                    "size": size,
+                },
+            }
+        )
+        self.read()
+        result = self.file_data[:size]
+        logger.debug(
+            {
+                "action": "success",
+                "return": result,
+            }
+        )
+        return result
+
     def read(self):
         logger.debug({"action": "start"})
         self.get_filename(self.file_name)
@@ -21,13 +53,10 @@ class FileReader():
             if not self._read_utf8():
                 if not self._read_cp932():
                     self._read_binary()
-                
-        logger.debug({
-            "action": "success",
-            "result": self.file_data
-        })
+
+        logger.debug({"action": "success", "result": self.file_data})
         return self.file_data
-    
+
     def _read_utf8(self) -> bool:
         """文字コードをUTF-8としてファイルを読み込む
 
@@ -36,14 +65,14 @@ class FileReader():
         """
         logger.debug({"action": "start"})
         try:
-            with open(self.file_name, 'r', encoding="utf-8") as f:
+            with open(self.file_name, "r", encoding="utf-8") as f:
                 self.file_data = f.read()
                 logger.debug({"action": "success"})
                 return True
         except UnicodeDecodeError as e:
             logger.debug({"action": "fail"})
             return False
-        
+
     def _read_cp932(self) -> bool:
         """文字コードをCP932としてファイルを読み込む
 
@@ -52,14 +81,14 @@ class FileReader():
         """
         logger.debug({"action": "start"})
         try:
-            with open(self.file_name, 'r', encoding="cp932") as f:
+            with open(self.file_name, "r", encoding="cp932") as f:
                 self.file_data = f.read()
                 logger.debug({"action": "success"})
                 return True
         except UnicodeDecodeError as e:
             logger.debug({"action": "fail"})
             return False
-    
+
     def _read_binary(self) -> bool:
         """バイナリとしてファイルを読み込む
 
@@ -68,14 +97,14 @@ class FileReader():
         """
         logger.debug({"action": "start"})
         try:
-            with open(self.file_name, 'rb') as f:
+            with open(self.file_name, "rb") as f:
                 self.file_data = f.read()
                 logger.debug({"action": "success"})
                 return True
         except UnicodeDecodeError as e:
             logger.debug({"action": "fail"})
             return False
-            
+
     @classmethod
     def get_filename(cls, filepath: str) -> str:
         """ファイル名の取得
@@ -87,42 +116,35 @@ class FileReader():
         Returns:
             str: ファイル名
         """
-        logger.debug({
-            "action": "start",
-            "param":{
-                "filepath": filepath
-            }
-        })
+        logger.debug({"action": "start", "param": {"filepath": filepath}})
         if type(filepath) is not str:
-            logger.debug({
-                "action": "fail",
-                "param":{
-                    "filepath": filepath
-                },
-                "message": "引数の値が不正"
-            })
+            logger.debug(
+                {
+                    "action": "fail",
+                    "param": {"filepath": filepath},
+                    "message": "引数の値が不正",
+                }
+            )
             raise ValueError(f"引数({filepath})の値が不正")
-        
+
         abspath = os.path.abspath(filepath)
         if os.path.isfile(abspath):
             basename = os.path.basename(abspath)
-            logger.debug({
-                "action": "success",
-                "param":{
-                    "filepath": filepath
-                },
-                "return": basename
-            })
+            logger.debug(
+                {
+                    "action": "success",
+                    "param": {"filepath": filepath},
+                    "return": basename,
+                }
+            )
             return basename
         else:
-            logger.debug({
-                "action": "fail",
-                "param":{
-                    "filepath": filepath
-                },
-                "message": "ファイルが存在しない",
-                "abspath": abspath
-            })
+            logger.debug(
+                {
+                    "action": "fail",
+                    "param": {"filepath": filepath},
+                    "message": "ファイルが存在しない",
+                    "abspath": abspath,
+                }
+            )
             raise ValueError(f"ファイル({abspath})が存在しない")
-
-
