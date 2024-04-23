@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.mark.shijo
-def test_load_rsa_key_with_password():
+def test_load_rsa_key_with_password(tmpdir):
     file1 = "tests/data/秘密鍵/private.pem"
-    file2 = "test.pem.cer"
-    assert CertificateCreater.create_cert(file1, file2) is not None
+    file2 = f"{tmpdir}/test.pem.cer"
+    assert CertificateCreater.create_cert(file1, file2, "aaa") is not None

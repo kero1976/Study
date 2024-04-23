@@ -10,7 +10,7 @@ logger = getLogger(__name__)
 class CertificateCreater:
 
     @classmethod
-    def create_cert(cls, private_key, certificate_file_path):
+    def create_cert(cls, private_key, certificate_file_path, cn):
         """証明書（cert）を作成."""
         logger.debug(
             {
@@ -29,7 +29,7 @@ class CertificateCreater:
         # cert.get_subject().L = "B"
         # cert.get_subject().O = "C"
         # cert.get_subject().OU = "D"
-        cert.get_subject().CN = "E"
+        cert.get_subject().CN = cn
 
         cert.set_serial_number(1000)
         cert.gmtime_adj_notBefore(0)
