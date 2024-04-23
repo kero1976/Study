@@ -9,7 +9,27 @@ logger = getLogger(__name__)
 class PrivateKeyLoad:
 
     @classmethod
-    def load_rsa_key_with_password(cls, password: bytes, file_path: str) -> bool:
+    def load_rsa_key(cls, file_path: str):
+        logger.debug(
+            {
+                "action": "start",
+                "params": {
+                    "file_path": file_path,
+                },
+            }
+        )
+        try:
+            result = cls.load_rsa_key_with_password(None, file_path)
+            logger.debug({"action": "success", "return": result})
+            logger.info(f"Load Private Key Success.({file_path})")
+            return result
+        except Exception as e:
+            logger.debug({"action": "fail", "exception": e})
+            logger.error(f"Load Private Key Failed.({file_path})")
+            return None
+
+    @classmethod
+    def load_rsa_key_with_password(cls, password: bytes, file_path: str):
         """パスワード付きの秘密鍵(PEM形式)を読み込む
 
         Args:
@@ -54,9 +74,7 @@ class PrivateKeyLoad:
                     },
                 }
             )
-            rsa_private_key = private_key.to_cryptography_key()
-            rsa_private_numbers = rsa_private_key.private_numbers()
-            rsa_public_key = rsa_private_key.public_key()
+            rsa_private_numbers = private_key.to_cryptography_key().private_numbers()
 
             logger.debug(
                 {
@@ -73,11 +91,10 @@ class PrivateKeyLoad:
                 }
             )
 
-            logger.debug(dir(rsa_public_key))
-
-            logger.debug({"action": "success", "return": True})
+            logger.debug({"action": "success", "return": private_key})
             logger.info(f"Load Private Encrypted Key Success.({file_path})")
-            return True
+            return private_key
         except Exception as e:
             logger.debug({"action": "fail", "exception": e})
             logger.error(f"Load Private Encrypted Key Failed.({file_path})")
+            return None
