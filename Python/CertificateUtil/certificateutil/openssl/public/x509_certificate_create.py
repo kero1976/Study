@@ -66,4 +66,41 @@ class CertificateCreater:
         )
         logger.debug({"action": "success", "return": True})
         logger.info(f"Create X509 Certificate Success.({certificate_file_path})")
-        return True
+        return cert
+
+    # @classmethod
+    # def create_cert_sign(cls, private_key, certificate_file_path, cn, sign_key):
+    #     """証明書（cert）を作成."""
+    #     logger.debug(
+    #         {
+    #             "action": "start",
+    #             "params": {
+    #                 "private_key": private_key,
+    #                 "certificate_file_path": certificate_file_path,
+    #             },
+    #         }
+    #     )
+    #     key = PrivateKeyLoad.load_rsa_key(private_key)
+
+    #     cert = crypto.X509()
+
+    #     cert.get_subject().CN = cn
+
+    #     cert.set_serial_number(1000)
+    #     cert.gmtime_adj_notBefore(0)
+    #     cert.gmtime_adj_notAfter(10 * 365 * 24 * 60 * 60)
+    #     cert.set_issuer(cert.get_subject())
+    #     cert.set_pubkey(key)
+
+    #     # v3
+    #     cert.set_version(2)
+    #     # self signature
+    #     cert.sign(sign_key, "sha256")
+
+    #     # save cert
+    #     open(certificate_file_path, "wt").write(
+    #         crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode("utf-8")
+    #     )
+    #     logger.debug({"action": "success", "return": True})
+    #     logger.info(f"Create X509 Certificate Success.({certificate_file_path})")
+    #     return True

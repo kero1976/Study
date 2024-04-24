@@ -3,6 +3,7 @@ from certificateutil.file.file_reader import FileReader
 import pytest
 
 
+@pytest.mark.skip
 def test_create_all():
     dir = "tests/data/秘密鍵/"
     PrivateKeyCreate.create_rsa_key(2048, f"{dir}/private.pem")

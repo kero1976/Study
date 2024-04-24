@@ -67,10 +67,14 @@ class PrivateKeyCreate:
         )
         # 秘密鍵を生成
         pk = OpenSSL.crypto.PKey()
+
         pk.generate_key(OpenSSL.crypto.TYPE_RSA, bits)
 
         # RSA秘密鍵をPEM形式でエクスポート
-        private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, pk)
+        private_key = OpenSSL.crypto.dump_privatekey(
+            OpenSSL.crypto.FILETYPE_PEM,
+            pk,
+        )
 
         FileWriter(file_path).write_binary(private_key)
         logger.debug({"action": "success", "return": True})
