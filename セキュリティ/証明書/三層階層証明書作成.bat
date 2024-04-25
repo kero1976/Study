@@ -1,6 +1,10 @@
 @echo off
 
 set BASE=c:\work\openssl
+set ROOT_SUBJECT=/CN=test.root.com/OU=B/O=A/ST=Tokyo/C=JP
+set CA_SUBJECT=/CN=test.ca.jp/OU=B/O=A/ST=Tokyo/C=JP
+set WEB_SUBJECT=/CN=test.web.jp/OU=B/O=A/ST=Tokyo/C=JP
+set PKCS12_PASSWORD=P@ssw0rd
 
 echo 作業フォルダを作成します。
 mkdir %BASE%\self_ca
@@ -25,7 +29,7 @@ type nul > demoCA\index.txt
 echo 1-2.Create Root CA request
 
 rem -nodesでパスワードなし。
-openssl req -new -nodes -subj /CN=test.root.com/OU=B/O=A/ST=Tokyo/C=JP -keyout demoCA/private/cakey.pem -out demoCA/careq.pem
+openssl req -new -nodes -subj %ROOT_SUBJECT% -keyout demoCA/private/cakey.pem -out demoCA/careq.pem
 
 
 echo 1-3.Root CA request Sign
@@ -39,7 +43,7 @@ cd %BASE%\self_ca\ICA
 
 
 echo 2-1.Create CA request
-openssl req -new -nodes -subj /CN=test.ca.jp/OU=B/O=A/ST=Tokyo/C=JP -keyout newkey.pem -out newreq.pem -days 1095
+openssl req -new -nodes -subj %CA_SUBJECT% -keyout newkey.pem -out newreq.pem -days 1095
 
 echo 2-2.CA Sign
 cd %BASE%\self_ca\RCA
@@ -79,11 +83,13 @@ cd %BASE%\self_ca\server
 openssl genrsa 2048 > server_key.pem
 
 echo 4-2.Create WEB request
-openssl req -new -subj /CN=test.web.jp/OU=B/O=A/ST=Tokyo/C=JP -key server_key.pem -out server_req.pem
+openssl req -new -subj %WEB_SUBJECT% -key server_key.pem -out server_req.pem
 
 echo 4-3.Create WEB sign
 cd %BASE%\self_ca\ICA
-openssl ca -batch -in ../server/server_req.pem -keyfile demoCA/private/cakey.pem -cert demoCA/cacert.pem -out ../server/www_vubuntults_mydomain.crt -days 1095
+openssl ca -batch -in ../server/server_req.pem -keyfile demoCA/private/cakey.pem -cert demoCA/cacert.pem -out ../server/www_server.crt -days 1095
 
+echo 4-4.Create PKCS#12
+openssl pkcs12 -export -in ../server/www_server.crt -inkey ../server/server_key.pem -certfile ../cert_chain.pem -out ../server/www_server.pfx -passout pass:%PKCS12_PASSWORD% 
 
 pause
