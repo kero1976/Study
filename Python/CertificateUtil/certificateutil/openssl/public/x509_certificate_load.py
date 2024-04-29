@@ -4,8 +4,7 @@ from certificateutil.openssl.private.private_key_load import PrivateKeyLoad
 from logging import getLogger
 from OpenSSL.crypto import X509Name
 from certificateutil.file.file_reader import FileReader
-import datetime
-from dateutil.tz import gettz
+
 
 logger = getLogger(__name__)
 
