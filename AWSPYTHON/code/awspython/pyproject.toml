@@ -12,6 +12,9 @@ ruff = "^0.6.0"
 isort = "^5.13.2"
 
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

@@ -6,7 +6,7 @@ from botocore.config import Config
 logger = getLogger(__name__)
 
 
-class Coonnection:
+class Connection:
 
     no_proxy_config = Config(proxies={"http": None, "https": None})
 
